@@ -1,0 +1,62 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Habit model - represents a habit the user wants to track
+model Habit {
+  id        String   @id @default(cuid())
+  name      String   // Name of the habit (e.g., "Morning Exercise")
+  description String? // Optional description
+  category  String   // Category (e.g., "Health", "Learning", "Productivity")
+  color     String   @default("blue") // Color for UI display
+  icon      String   @default("target") // Icon name from lucide-react
+  frequency String   @default("daily") // "daily", "weekly", "monthly"
+  goal      Int      @default(1) // Target count per period
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  checkIns  CheckIn[]
+  badges    Badge[]
+
+  @@index([category])
+  @@index([createdAt])
+}
+
+// CheckIn model - represents a daily check-in for a habit
+model CheckIn {
+  id        String   @id @default(cuid())
+  habitId   String
+  habit     Habit    @relation(fields: [habitId], references: [id], onDelete: Cascade)
+  date      DateTime // Date of the check-in
+  completed Boolean  @default(false) // Whether the habit was completed
+  notes     String?  // Optional notes about the check-in
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([habitId, date]) // One check-in per habit per day
+  @@index([habitId])
+  @@index([date])
+}
+
+// Badge model - represents achievements/badges earned by user
+model Badge {
+  id        String   @id @default(cuid())
+  habitId   String
+  habit     Habit    @relation(fields: [habitId], references: [id], onDelete: Cascade)
+  name      String   // Badge name (e.g., "7-Day Streak", "Perfect Week")
+  description String? // Badge description
+  icon      String   // Icon name
+  earnedAt  DateTime @default(now())
+
+  @@index([habitId])
+  @@index([earnedAt])
+}
