@@ -87,19 +87,19 @@ export function determineBadges(checkIns: any[], existingBadges: any[] = []) {
   const existingBadgeNames = existingBadges.map((b) => b.name)
 
   // 7-Day Streak Badge
-  if (streak >= 7 && !existingBadgeNames.includes('7-Day Streak')) {
+  if (streak >= 7 && !existingBadgeNames.includes('Sequência de 7 Dias')) {
     badgesToAward.push({
-      name: '7-Day Streak',
-      description: 'Completed habit for 7 consecutive days',
+      name: 'Sequência de 7 Dias',
+      description: 'Completou o hábito por 7 dias consecutivos',
       icon: 'flame',
     })
   }
 
   // 30-Day Streak Badge
-  if (streak >= 30 && !existingBadgeNames.includes('30-Day Streak')) {
+  if (streak >= 30 && !existingBadgeNames.includes('Sequência de 30 Dias')) {
     badgesToAward.push({
-      name: '30-Day Streak',
-      description: 'Completed habit for 30 consecutive days',
+      name: 'Sequência de 30 Dias',
+      description: 'Completou o hábito por 30 dias consecutivos',
       icon: 'zap',
     })
   }
@@ -108,20 +108,20 @@ export function determineBadges(checkIns: any[], existingBadges: any[] = []) {
   if (
     completionPercentage === 100 &&
     checkIns.length >= 7 &&
-    !existingBadgeNames.includes('Perfect Week')
+    !existingBadgeNames.includes('Semana Perfeita')
   ) {
     badgesToAward.push({
-      name: 'Perfect Week',
-      description: 'Completed habit every day for a week',
+      name: 'Semana Perfeita',
+      description: 'Completou o hábito todos os dias por uma semana',
       icon: 'star',
     })
   }
 
   // Getting Started Badge
-  if (checkIns.length >= 1 && !existingBadgeNames.includes('Getting Started')) {
+  if (checkIns.length >= 1 && !existingBadgeNames.includes('Começando')) {
     badgesToAward.push({
-      name: 'Getting Started',
-      description: 'Completed your first check-in',
+      name: 'Começando',
+      description: 'Completou seu primeiro check-in',
       icon: 'rocket',
     })
   }
@@ -130,11 +130,11 @@ export function determineBadges(checkIns: any[], existingBadges: any[] = []) {
   if (
     completionPercentage >= 80 &&
     checkIns.length >= 30 &&
-    !existingBadgeNames.includes('Dedicated')
+    !existingBadgeNames.includes('Dedicado')
   ) {
     badgesToAward.push({
-      name: 'Dedicated',
-      description: 'Maintained 80% completion rate over 30 days',
+      name: 'Dedicado',
+      description: 'Manteve 80% de taxa de conclusão por 30 dias',
       icon: 'heart',
     })
   }

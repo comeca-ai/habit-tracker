@@ -38,12 +38,12 @@ export function Dashboard() {
     try {
       setIsLoading(true)
       const response = await fetch('/api/habits')
-      if (!response.ok) throw new Error('Failed to fetch habits')
+      if (!response.ok) throw new Error('Falha ao buscar hábitos')
       const data = await response.json()
       setHabits(data)
     } catch (error) {
-      console.error('Error fetching habits:', error)
-      toast.error('Failed to load habits')
+      console.error('Erro ao buscar hábitos:', error)
+      toast.error('Falha ao carregar hábitos')
     } finally {
       setIsLoading(false)
     }
@@ -59,13 +59,13 @@ export function Dashboard() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(habitData),
       })
-      if (!response.ok) throw new Error('Failed to create habit')
+      if (!response.ok) throw new Error('Falha ao criar hábito')
       const newHabit = await response.json()
       setHabits([newHabit, ...habits])
-      toast.success('Habit created successfully! 🎉')
+      toast.success('Hábito criado com sucesso! 🎉')
     } catch (error) {
-      console.error('Error creating habit:', error)
-      toast.error('Failed to create habit')
+      console.error('Erro ao criar hábito:', error)
+      toast.error('Falha ao criar hábito')
     }
   }
 
@@ -93,13 +93,13 @@ export function Dashboard() {
       await fetchHabits()
 
       if (completed) {
-        toast.success('Great job! Keep up the streak! 🔥')
+        toast.success('Ótimo trabalho! Mantenha a sequência! 🔥')
       } else {
-        toast.info('Check-in removed')
+        toast.info('Check-in removido')
       }
     } catch (error) {
-      console.error('Error checking in:', error)
-      toast.error('Failed to check in')
+      console.error('Erro ao fazer check-in:', error)
+      toast.error('Falha ao fazer check-in')
     }
   }
 
@@ -107,18 +107,18 @@ export function Dashboard() {
    * Delete a habit
    */
   const handleDeleteHabit = async (habitId: string) => {
-    if (!confirm('Are you sure you want to delete this habit?')) return
+    if (!confirm('Tem certeza que deseja excluir este hábito?')) return
 
     try {
       const response = await fetch(`/api/habits/${habitId}`, {
         method: 'DELETE',
       })
-      if (!response.ok) throw new Error('Failed to delete habit')
+      if (!response.ok) throw new Error('Falha ao excluir hábito')
       setHabits(habits.filter((h) => h.id !== habitId))
-      toast.success('Habit deleted')
+      toast.success('Hábito excluído')
     } catch (error) {
-      console.error('Error deleting habit:', error)
-      toast.error('Failed to delete habit')
+      console.error('Erro ao excluir hábito:', error)
+      toast.error('Falha ao excluir hábito')
     }
   }
 
@@ -161,10 +161,10 @@ export function Dashboard() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            Habit Tracker
+            Rastreador de Hábitos
           </h1>
           <p className="text-muted-foreground mt-1">
-            Build better habits, one day at a time
+            Construa bons hábitos, um dia de cada vez
           </p>
         </div>
         <CreateHabitDialog onCreateHabit={handleCreateHabit} />
@@ -175,7 +175,7 @@ export function Dashboard() {
         <Card className="p-6 bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-blue-600 font-medium">Total Habits</p>
+              <p className="text-sm text-blue-600 font-medium">Total de Hábitos</p>
               <p className="text-3xl font-bold text-blue-700 mt-2">
                 {totalHabits}
               </p>
@@ -188,7 +188,7 @@ export function Dashboard() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-orange-600 font-medium">
-                Total Streak
+                Sequência Total
               </p>
               <p className="text-3xl font-bold text-orange-700 mt-2">
                 {totalStreak}
@@ -202,7 +202,7 @@ export function Dashboard() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-purple-600 font-medium">
-                Badges Earned
+                Conquistas Ganhas
               </p>
               <p className="text-3xl font-bold text-purple-700 mt-2">
                 {totalBadges}
@@ -216,7 +216,7 @@ export function Dashboard() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-green-600 font-medium">
-                Completed Today
+                Concluídos Hoje
               </p>
               <p className="text-3xl font-bold text-green-700 mt-2">
                 {completedToday}/{totalHabits}
@@ -234,10 +234,10 @@ export function Dashboard() {
             <Icons.Zap className="w-6 h-6 text-yellow-500" />
             <div>
               <p className="font-semibold text-yellow-900">
-                Amazing! You've completed all your habits today! 🎉
+                Incrível! Você completou todos os seus hábitos hoje! 🎉
               </p>
               <p className="text-sm text-yellow-700">
-                Keep this momentum going and build an unstoppable streak!
+                Mantenha esse ritmo e construa uma sequência imparável!
               </p>
             </div>
           </div>
@@ -247,7 +247,7 @@ export function Dashboard() {
       {/* Main Content Tabs */}
       <Tabs defaultValue="all" className="w-full">
         <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 lg:grid-cols-6">
-          <TabsTrigger value="all">All</TabsTrigger>
+          <TabsTrigger value="all">Todos</TabsTrigger>
           {categories.map((category) => (
             <TabsTrigger key={category} value={category} className="capitalize">
               {category}
@@ -260,14 +260,14 @@ export function Dashboard() {
           {isLoading ? (
             <div className="text-center py-12">
               <Icons.Loader2 className="w-8 h-8 animate-spin mx-auto text-muted-foreground" />
-              <p className="text-muted-foreground mt-2">Loading habits...</p>
+              <p className="text-muted-foreground mt-2">Carregando hábitos...</p>
             </div>
           ) : habits.length === 0 ? (
             <Card className="p-12 text-center">
               <Icons.Plus className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-              <h3 className="text-lg font-semibold mb-2">No habits yet</h3>
+              <h3 className="text-lg font-semibold mb-2">Nenhum hábito ainda</h3>
               <p className="text-muted-foreground mb-4">
-                Create your first habit to get started!
+                Crie seu primeiro hábito para começar!
               </p>
               <CreateHabitDialog onCreateHabit={handleCreateHabit} />
             </Card>
@@ -310,7 +310,7 @@ export function Dashboard() {
       {selectedHabit && (
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-bold">{selectedHabit.name} - Details</h2>
+            <h2 className="text-2xl font-bold">{selectedHabit.name} - Detalhes</h2>
             <Button
               variant="outline"
               onClick={() => setSelectedHabit(null)}

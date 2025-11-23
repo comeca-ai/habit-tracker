@@ -98,26 +98,26 @@ export function HabitCard({
             <Icons.Flame className="w-4 h-4 text-orange-500" />
             <span className="font-bold text-lg text-orange-600">{streak}</span>
           </div>
-          <p className="text-xs text-muted-foreground">Day Streak</p>
+          <p className="text-xs text-muted-foreground">Dias Seguidos</p>
         </div>
         <div className="text-center p-2 bg-blue-50 rounded-lg">
           <div className="font-bold text-lg text-blue-600 mb-1">
             {completionPercentage}%
           </div>
-          <p className="text-xs text-muted-foreground">Completion</p>
+          <p className="text-xs text-muted-foreground">Conclusão</p>
         </div>
         <div className="text-center p-2 bg-purple-50 rounded-lg">
           <div className="font-bold text-lg text-purple-600 mb-1">
             {habit.badges?.length || 0}
           </div>
-          <p className="text-xs text-muted-foreground">Badges</p>
+          <p className="text-xs text-muted-foreground">Conquistas</p>
         </div>
       </div>
 
       {/* Progress bar */}
       <div className="mb-4">
         <div className="flex justify-between items-center mb-2">
-          <span className="text-xs font-medium">30-Day Progress</span>
+          <span className="text-xs font-medium">Progresso (30 dias)</span>
           <span className="text-xs text-muted-foreground">
             {completionPercentage}%
           </span>
@@ -128,7 +128,7 @@ export function HabitCard({
       {/* Badges display */}
       {habit.badges && habit.badges.length > 0 && (
         <div className="mb-4 pb-4 border-b">
-          <p className="text-xs font-medium mb-2">Recent Badges</p>
+          <p className="text-xs font-medium mb-2">Conquistas Recentes</p>
           <div className="flex flex-wrap gap-2">
             {habit.badges.slice(0, 3).map((badge: any) => (
               <div
@@ -159,7 +159,7 @@ export function HabitCard({
           {todayCheckIn?.completed ? (
             <>
               <Icons.CheckCircle2 className="w-4 h-4 mr-2" />
-              Done Today
+              Feito Hoje
             </>
           ) : (
             <>
