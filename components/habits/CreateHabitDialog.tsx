@@ -57,7 +57,7 @@ export function CreateHabitDialog({
 
     // Validate required fields
     if (!formData.name.trim()) {
-      alert('Please enter a habit name')
+      alert('Por favor, digite o nome do hábito')
       return
     }
 
@@ -101,25 +101,25 @@ export function CreateHabitDialog({
       <DialogTrigger asChild>
         <Button className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600">
           <Plus className="w-4 h-4 mr-2" />
-          New Habit
+          Novo Hábito
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
-          <DialogTitle>Create New Habit</DialogTitle>
+          <DialogTitle>Criar Novo Hábito</DialogTitle>
           <DialogDescription>
-            Start building a new habit today. Fill in the details below.
+            Comece a construir um novo hábito hoje. Preencha os detalhes abaixo.
           </DialogDescription>
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Habit Name */}
           <div className="space-y-2">
-            <Label htmlFor="name">Habit Name *</Label>
+            <Label htmlFor="name">Nome do Hábito *</Label>
             <Input
               id="name"
               name="name"
-              placeholder="e.g., Morning Exercise"
+              placeholder="ex: Exercício Matinal"
               value={formData.name}
               onChange={handleChange}
               required
@@ -128,11 +128,11 @@ export function CreateHabitDialog({
 
           {/* Description */}
           <div className="space-y-2">
-            <Label htmlFor="description">Description</Label>
+            <Label htmlFor="description">Descrição</Label>
             <Textarea
               id="description"
               name="description"
-              placeholder="Optional description of your habit"
+              placeholder="Descrição opcional do seu hábito"
               value={formData.description}
               onChange={handleChange}
               rows={3}
@@ -141,7 +141,7 @@ export function CreateHabitDialog({
 
           {/* Category */}
           <div className="space-y-2">
-            <Label htmlFor="category">Category *</Label>
+            <Label htmlFor="category">Categoria *</Label>
             <Select
               value={formData.category}
               onValueChange={(value) =>
@@ -152,21 +152,21 @@ export function CreateHabitDialog({
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="health">Health</SelectItem>
+                <SelectItem value="health">Saúde</SelectItem>
                 <SelectItem value="fitness">Fitness</SelectItem>
-                <SelectItem value="learning">Learning</SelectItem>
-                <SelectItem value="productivity">Productivity</SelectItem>
+                <SelectItem value="learning">Aprendizado</SelectItem>
+                <SelectItem value="productivity">Produtividade</SelectItem>
                 <SelectItem value="mindfulness">Mindfulness</SelectItem>
                 <SelectItem value="social">Social</SelectItem>
-                <SelectItem value="finance">Finance</SelectItem>
-                <SelectItem value="other">Other</SelectItem>
+                <SelectItem value="finance">Finanças</SelectItem>
+                <SelectItem value="other">Outro</SelectItem>
               </SelectContent>
             </Select>
           </div>
 
           {/* Color */}
           <div className="space-y-2">
-            <Label htmlFor="color">Color</Label>
+            <Label htmlFor="color">Cor</Label>
             <Select
               value={formData.color}
               onValueChange={(value) => handleSelectChange('color', value)}
@@ -175,19 +175,19 @@ export function CreateHabitDialog({
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="blue">Blue</SelectItem>
-                <SelectItem value="green">Green</SelectItem>
-                <SelectItem value="purple">Purple</SelectItem>
-                <SelectItem value="orange">Orange</SelectItem>
-                <SelectItem value="red">Red</SelectItem>
-                <SelectItem value="pink">Pink</SelectItem>
+                <SelectItem value="blue">Azul</SelectItem>
+                <SelectItem value="green">Verde</SelectItem>
+                <SelectItem value="purple">Roxo</SelectItem>
+                <SelectItem value="orange">Laranja</SelectItem>
+                <SelectItem value="red">Vermelho</SelectItem>
+                <SelectItem value="pink">Rosa</SelectItem>
               </SelectContent>
             </Select>
           </div>
 
           {/* Frequency */}
           <div className="space-y-2">
-            <Label htmlFor="frequency">Frequency</Label>
+            <Label htmlFor="frequency">Frequência</Label>
             <Select
               value={formData.frequency}
               onValueChange={(value) =>
@@ -198,16 +198,16 @@ export function CreateHabitDialog({
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="daily">Daily</SelectItem>
-                <SelectItem value="weekly">Weekly</SelectItem>
-                <SelectItem value="monthly">Monthly</SelectItem>
+                <SelectItem value="daily">Diariamente</SelectItem>
+                <SelectItem value="weekly">Semanalmente</SelectItem>
+                <SelectItem value="monthly">Mensalmente</SelectItem>
               </SelectContent>
             </Select>
           </div>
 
           {/* Goal */}
           <div className="space-y-2">
-            <Label htmlFor="goal">Daily Goal</Label>
+            <Label htmlFor="goal">Meta Diária</Label>
             <Input
               id="goal"
               name="goal"
@@ -226,14 +226,14 @@ export function CreateHabitDialog({
               onClick={() => setOpen(false)}
               className="flex-1"
             >
-              Cancel
+              Cancelar
             </Button>
             <Button
               type="submit"
               disabled={isLoading}
               className="flex-1 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600"
             >
-              {isLoading ? 'Creating...' : 'Create Habit'}
+              {isLoading ? 'Criando...' : 'Criar Hábito'}
             </Button>
           </div>
         </form>

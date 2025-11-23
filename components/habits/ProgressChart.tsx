@@ -69,15 +69,15 @@ export function ProgressChart({
   return (
     <Card className="p-6">
       <div className="mb-6">
-        <h3 className="text-lg font-semibold mb-2">30-Day Progress</h3>
+        <h3 className="text-lg font-semibold mb-2">Progresso em 30 Dias</h3>
         <p className="text-sm text-muted-foreground">
-          Track your habit completion over the last month
+          Acompanhe a conclusão do seu hábito no último mês
         </p>
       </div>
 
       {/* Daily Chart */}
       <div className="mb-8">
-        <h4 className="text-sm font-medium mb-4">Daily Completion</h4>
+        <h4 className="text-sm font-medium mb-4">Conclusão Diária</h4>
         <ResponsiveContainer width="100%" height={300}>
           <BarChart data={data}>
             <CartesianGrid strokeDasharray="3 3" />
@@ -88,8 +88,8 @@ export function ProgressChart({
             />
             <YAxis domain={[0, 1]} hide />
             <Tooltip
-              formatter={(value) => (value === 1 ? 'Completed' : 'Missed')}
-              labelFormatter={(label) => `Date: ${label}`}
+              formatter={(value) => (value === 1 ? 'Concluído' : 'Perdido')}
+              labelFormatter={(label) => `Data: ${label}`}
             />
             <Bar
               dataKey="completed"
@@ -103,7 +103,7 @@ export function ProgressChart({
 
       {/* Weekly Chart */}
       <div>
-        <h4 className="text-sm font-medium mb-4">Weekly Completion Rate</h4>
+        <h4 className="text-sm font-medium mb-4">Taxa de Conclusão Semanal</h4>
         <ResponsiveContainer width="100%" height={250}>
           <LineChart data={weeklyData}>
             <CartesianGrid strokeDasharray="3 3" />
@@ -121,7 +121,7 @@ export function ProgressChart({
               strokeWidth={2}
               dot={{ fill: '#8b5cf6', r: 5 }}
               activeDot={{ r: 7 }}
-              name="Completion %"
+              name="Conclusão %"
               isAnimationActive={true}
             />
           </LineChart>
@@ -134,7 +134,7 @@ export function ProgressChart({
           <div className="text-2xl font-bold text-blue-600">
             {data.filter((d) => d.completed === 1).length}
           </div>
-          <p className="text-xs text-muted-foreground">Days Completed</p>
+          <p className="text-xs text-muted-foreground">Dias Concluídos</p>
         </div>
         <div className="text-center">
           <div className="text-2xl font-bold text-purple-600">
@@ -143,13 +143,13 @@ export function ProgressChart({
             )}
             %
           </div>
-          <p className="text-xs text-muted-foreground">Completion Rate</p>
+          <p className="text-xs text-muted-foreground">Taxa de Conclusão</p>
         </div>
         <div className="text-center">
           <div className="text-2xl font-bold text-green-600">
             {data.filter((d) => d.completed === 0).length}
           </div>
-          <p className="text-xs text-muted-foreground">Days Missed</p>
+          <p className="text-xs text-muted-foreground">Dias Perdidos</p>
         </div>
       </div>
     </Card>
