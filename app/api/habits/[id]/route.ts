@@ -7,11 +7,12 @@ import { prisma } from '@/lib/db'
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params
     const habit = await prisma.habit.findUnique({
-      where: { id: params.id },
+      where: { id },
       include: {
         checkIns: {
           orderBy: { date: 'desc' },
@@ -46,14 +47,15 @@ export async function GET(
  */
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const body = await request.json()
+    const { id } = await params
 
     // Update habit with provided fields
     const habit = await prisma.habit.update({
-      where: { id: params.id },
+      where: { id },
       data: body,
       include: {
         checkIns: true,
@@ -77,12 +79,13 @@ export async function PUT(
  */
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params
     // Delete habit (cascades to check-ins and badges)
     await prisma.habit.delete({
-      where: { id: params.id },
+      where: { id },
     })
 
     return NextResponse.json({ success: true })
