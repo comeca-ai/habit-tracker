@@ -21,9 +21,10 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Plus } from 'lucide-react'
+import { CreateHabitInput } from '@/types/habit'
 
 interface CreateHabitDialogProps {
-  onCreateHabit: (habit: any) => void
+  onCreateHabit: (habit: CreateHabitInput) => void
   isLoading?: boolean
 }
 

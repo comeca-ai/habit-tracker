@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/db'
+import { Prisma } from '@prisma/client'
 
 /**
  * POST /api/check-ins
@@ -86,7 +87,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Build date filter
-    const where: any = { habitId }
+    const where: Prisma.CheckInWhereInput = { habitId }
 
     if (startDate && endDate) {
       where.date = {

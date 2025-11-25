@@ -2,13 +2,15 @@
  * Utility functions for habit tracking logic
  */
 
+import { CheckIn, Badge } from '@/types/habit'
+
 /**
  * Calculate the current streak for a habit based on check-ins
  * A streak is broken if there's a day without a completed check-in
  * @param checkIns - Array of check-ins sorted by date (newest first)
  * @returns Current streak count
  */
-export function calculateStreak(checkIns: any[]): number {
+export function calculateStreak(checkIns: CheckIn[]): number {
   if (checkIns.length === 0) return 0
 
   // Sort by date descending (newest first)
@@ -17,7 +19,7 @@ export function calculateStreak(checkIns: any[]): number {
   )
 
   let streak = 0
-  let currentDate = new Date()
+  const currentDate = new Date()
   currentDate.setHours(0, 0, 0, 0)
 
   // Check each day going backwards
@@ -54,7 +56,7 @@ export function calculateStreak(checkIns: any[]): number {
  * @returns Percentage (0-100)
  */
 export function calculateCompletionPercentage(
-  checkIns: any[],
+  checkIns: CheckIn[],
   days: number = 30
 ): number {
   if (checkIns.length === 0) return 0
@@ -78,7 +80,7 @@ export function calculateCompletionPercentage(
  * @param existingBadges - Array of existing badges
  * @returns Array of badge objects to award
  */
-export function determineBadges(checkIns: any[], existingBadges: any[] = []) {
+export function determineBadges(checkIns: CheckIn[], existingBadges: Badge[] = []) {
   const badgesToAward = []
   const streak = calculateStreak(checkIns)
   const completionPercentage = calculateCompletionPercentage(checkIns, 30)

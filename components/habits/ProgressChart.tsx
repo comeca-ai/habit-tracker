@@ -2,11 +2,10 @@
 
 import { Card } from '@/components/ui/card'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from 'recharts'
-import { calculateCompletionPercentage } from '@/lib/habits'
+import { Habit, CheckIn } from '@/types/habit'
 
 interface ProgressChartProps {
-  habit: any
-  chartType?: 'bar' | 'line'
+  habit: Habit
 }
 
 /**
@@ -16,7 +15,6 @@ interface ProgressChartProps {
  */
 export function ProgressChart({
   habit,
-  chartType = 'bar',
 }: ProgressChartProps) {
   // Prepare data for chart - last 30 days
   const data = []
@@ -28,7 +26,7 @@ export function ProgressChart({
     date.setHours(0, 0, 0, 0)
 
     // Find check-in for this date
-    const checkIn = habit.checkIns?.find((ci: any) => {
+    const checkIn = habit.checkIns?.find((ci: CheckIn) => {
       const ciDate = new Date(ci.date)
       ciDate.setHours(0, 0, 0, 0)
       return ciDate.getTime() === date.getTime()
@@ -51,13 +49,13 @@ export function ProgressChart({
     const weekEnd = new Date(weekStart)
     weekEnd.setDate(weekEnd.getDate() + 6)
 
-    const weekCheckIns = habit.checkIns?.filter((ci: any) => {
+    const weekCheckIns = habit.checkIns?.filter((ci: CheckIn) => {
       const ciDate = new Date(ci.date)
       ciDate.setHours(0, 0, 0, 0)
       return ciDate >= weekStart && ciDate <= weekEnd
     }) || []
 
-    const completed = weekCheckIns.filter((ci: any) => ci.completed).length
+    const completed = weekCheckIns.filter((ci: CheckIn) => ci.completed).length
     const percentage = Math.round((completed / 7) * 100)
 
     weeklyData.push({

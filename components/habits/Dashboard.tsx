@@ -10,6 +10,7 @@ import { ProgressChart } from './ProgressChart'
 import { toast } from 'sonner'
 import * as Icons from 'lucide-react'
 import { calculateStreak } from '@/lib/habits'
+import { Habit, CheckIn, CreateHabitInput } from '@/types/habit'
 
 /**
  * Dashboard Component
@@ -21,9 +22,8 @@ import { calculateStreak } from '@/lib/habits'
  * - Motivational elements
  */
 export function Dashboard() {
-  const [habits, setHabits] = useState<any[]>([])
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
-  const [selectedHabit, setSelectedHabit] = useState<any>(null)
+  const [habits, setHabits] = useState<Habit[]>([])
+  const [selectedHabit, setSelectedHabit] = useState<Habit | null>(null)
   const [isLoading, setIsLoading] = useState(true)
 
   // Fetch habits on mount
@@ -52,7 +52,7 @@ export function Dashboard() {
   /**
    * Create a new habit
    */
-  const handleCreateHabit = async (habitData: any) => {
+  const handleCreateHabit = async (habitData: CreateHabitInput) => {
     try {
       const response = await fetch('/api/habits', {
         method: 'POST',
@@ -130,13 +130,6 @@ export function Dashboard() {
   ) as string[]
 
   /**
-   * Filter habits by selected category
-   */
-  const filteredHabits = selectedCategory
-    ? habits.filter((h) => h.category === selectedCategory)
-    : habits
-
-  /**
    * Calculate dashboard statistics
    */
   const totalHabits = habits.length
@@ -148,7 +141,7 @@ export function Dashboard() {
   const completedToday = habits.filter((h) => {
     const today = new Date()
     today.setHours(0, 0, 0, 0)
-    return h.checkIns?.some((ci: any) => {
+    return h.checkIns?.some((ci: CheckIn) => {
       const ciDate = new Date(ci.date)
       ciDate.setHours(0, 0, 0, 0)
       return ciDate.getTime() === today.getTime() && ci.completed

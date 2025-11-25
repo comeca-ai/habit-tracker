@@ -7,11 +7,12 @@ import { Progress } from '@/components/ui/progress'
 import { calculateStreak, calculateCompletionPercentage } from '@/lib/habits'
 import * as Icons from 'lucide-react'
 import { useState } from 'react'
+import { Habit, CheckIn, Badge as BadgeType } from '@/types/habit'
 
 interface HabitCardProps {
-  habit: any
+  habit: Habit
   onCheckIn: (habitId: string, completed: boolean) => void
-  onEdit: (habit: any) => void
+  onEdit: (habit: Habit) => void
   onDelete: (habitId: string) => void
 }
 
@@ -43,14 +44,14 @@ export function HabitCard({
   // Get today's check-in status
   const today = new Date()
   today.setHours(0, 0, 0, 0)
-  const todayCheckIn = habit.checkIns?.find((ci: any) => {
+  const todayCheckIn = habit.checkIns?.find((ci: CheckIn) => {
     const ciDate = new Date(ci.date)
     ciDate.setHours(0, 0, 0, 0)
     return ciDate.getTime() === today.getTime()
   })
 
   // Get icon component dynamically
-  const IconComponent = (Icons as any)[habit.icon] || Icons.Target
+  const IconComponent = (Icons as unknown as Record<string, typeof Icons.Target>)[habit.icon] || Icons.Target
 
   // Handle check-in button click
   const handleCheckIn = async () => {
@@ -130,7 +131,7 @@ export function HabitCard({
         <div className="mb-4 pb-4 border-b">
           <p className="text-xs font-medium mb-2">Conquistas Recentes</p>
           <div className="flex flex-wrap gap-2">
-            {habit.badges.slice(0, 3).map((badge: any) => (
+            {habit.badges.slice(0, 3).map((badge: BadgeType) => (
               <div
                 key={badge.id}
                 className="flex items-center gap-1 px-2 py-1 bg-yellow-50 rounded-full border border-yellow-200"

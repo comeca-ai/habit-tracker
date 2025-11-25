@@ -6,11 +6,11 @@ import { prisma } from '@/lib/db'
  * Fetch a specific habit with all its check-ins and badges
  */
 export async function GET(
-  request: NextRequest,
+  _request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params
   try {
-    const { id } = await params
     const habit = await prisma.habit.findUnique({
       where: { id },
       include: {
@@ -49,9 +49,9 @@ export async function PUT(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params
   try {
     const body = await request.json()
-    const { id } = await params
 
     // Update habit with provided fields
     const habit = await prisma.habit.update({
@@ -78,11 +78,11 @@ export async function PUT(
  * Delete a habit and all its associated check-ins and badges
  */
 export async function DELETE(
-  request: NextRequest,
+  _request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params
   try {
-    const { id } = await params
     // Delete habit (cascades to check-ins and badges)
     await prisma.habit.delete({
       where: { id },
